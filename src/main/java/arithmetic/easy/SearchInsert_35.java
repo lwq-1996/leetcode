@@ -27,7 +27,25 @@ package arithmetic.easy;
 public class SearchInsert_35 {
 
     public int searchInsert(int[] nums, int target) {
-        return 0;
+        int result = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] > target) {
+                result++;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 找到后直接结束返回
+     */
+    public int searchInsert2(int[] nums, int target) {
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] >= target) {
+                return i;
+            }
+        }
+        return nums.length;
     }
 
     public static void main(String[] args) {
@@ -35,7 +53,7 @@ public class SearchInsert_35 {
         int[] num = {1, 3, 5, 6};
         int target = 5;
 
-        int i = searchInsert_35.searchInsert(num, target);
+        int i = searchInsert_35.searchInsert2(num, target);
         System.out.println(i);
     }
 }
