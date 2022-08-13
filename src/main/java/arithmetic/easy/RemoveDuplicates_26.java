@@ -38,13 +38,49 @@ package arithmetic.easy;
  */
 public class RemoveDuplicates_26 {
 
+    /**
+     *
+     * @param nums
+     * @return
+     */
     public int removeDuplicates(int[] nums) {
+        /*if (null == nums || nums.length == 1) {
+            return nums.length;
+        }
+
+        int l = 1;
+        for (int k = 0; k < nums.length; k++) {
+            if (nums[l] != nums[k]) {
+                nums[l] = nums[k];
+                l++;
+            }
+        }
+        return l+1;*/
         return 0;
     }
 
     public static void main(String[] args) {
         RemoveDuplicates_26 removeDuplicates_26 = new RemoveDuplicates_26();
-        int[] params = {0, 1, 2};
-        removeDuplicates_26.removeDuplicates(params);
+        int[] params = {0,0,1,1,1,2,2,3,3,4};
+        int i = removeDuplicates_26.removeDuplicates(params);
+        System.out.println(i);
+    }
+
+    public int removeDuplicates2(int[] nums) {
+        if (null == nums || nums.length == 1) {
+            return nums.length;
+        }
+        int i = 0;
+        int j = 1;
+        while (j < nums.length) {
+            if (nums[i] == nums[j]) {
+                j++;
+            } else {
+                i++;
+                nums[i] = nums[j];
+                j++;
+            }
+        }
+        return i+1;
     }
 }
