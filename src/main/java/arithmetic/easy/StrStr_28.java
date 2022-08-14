@@ -29,13 +29,25 @@ package arithmetic.easy;
 public class StrStr_28 {
 
     public int strStr(String haystack, String needle) {
-        return 0;
+        if (haystack == null || "".equals(haystack)) {
+            return 0;
+        }
+        if (!haystack.contains(needle)) {
+            return -1;
+        }
+
+        int current = 0;
+        while (!haystack.startsWith(needle)) {
+            haystack = haystack.substring(1);
+            current++;
+        }
+        return current;
     }
 
     public static void main(String[] args) {
         StrStr_28 strStr_28 = new StrStr_28();
-        String haystack = "hello";
-        String needle = "ll";
+        String haystack = "aaaaa";
+        String needle = "bba";
 
         int i = strStr_28.strStr(haystack, needle);
         System.out.println(i);
