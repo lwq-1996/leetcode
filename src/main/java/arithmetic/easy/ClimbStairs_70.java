@@ -29,13 +29,29 @@ package arithmetic.easy;
  */
 public class ClimbStairs_70 {
 
+    /**
+     * 动态规划：
+     *  第n个台阶只能从第n-1或者n-2个上来。到第n-1个台阶的走法 + 第n-2个台阶的走法 = 到第n个台阶的走法，已知第1个和第2个台阶的走法
+     */
     public int climbStairs(int n) {
-        return 0;
+        if (n <= 2) {
+            return n;
+        }
+
+        int a = 1;
+        int b = 2;
+        int temp = 0;
+        for (int i = 3; i <= n; i++) {
+            temp = b;
+            b = a + b;
+            a = temp;
+        }
+        return b;
     }
 
     public static void main(String[] args) {
         ClimbStairs_70 climbStairs_70 = new ClimbStairs_70();
-        int n = 2;
+        int n = 6;
 
         int i = climbStairs_70.climbStairs(n);
         System.out.println(i);
