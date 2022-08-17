@@ -36,4 +36,24 @@ public class MySqrt_69 {
         int i = mySqrt_69.mySqrt(x);
         System.out.println(i);
     }
+
+    /**
+     * 二分查找，用 x/m， 而不是用 m*m(防止溢出)
+     * @param x
+     * @return
+     */
+    public int mySqrt2(int x) {
+        if (x == 1)
+            return 1;
+        int min = 0;
+        int max = x;
+        while (max - min > 1) {
+            int m = (max + min) / 2;
+            if (x / m < m)
+                max = m;
+            else
+                min = m;
+        }
+        return min;
+    }
 }
