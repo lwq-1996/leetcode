@@ -30,8 +30,31 @@ import comm.ListNode;
  */
 public class DeleteDuplicates_83 {
 
+    /**
+     * 执行结果： 通过
+     * 执行用时：0 ms, 在所有 Java 提交中击败了100.00%的用户
+     * 内存消耗：41 MB, 在所有 Java 提交中击败了58.38%的用户
+     * 通过测试用例：166 / 166
+     */
     public ListNode deleteDuplicates(ListNode head) {
-        return null;
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        ListNode root = new ListNode(0);
+        ListNode current = root;
+        int val = head.val;
+        while (head != null) {
+            if (head.next == null || val != head.next.val) {
+                current.next = head;
+                current = head;
+                if (head.next != null){
+                    val = head.next.val;
+                }
+            }
+            head = head.next;
+        }
+        return root.next;
     }
 
     public static void main(String[] args) {
@@ -39,6 +62,8 @@ public class DeleteDuplicates_83 {
         ListNode head = new ListNode(1);
         head.next = new ListNode(1);
         head.next.next = new ListNode(2);
+        head.next.next.next = new ListNode(3);
+        head.next.next.next.next = new ListNode(3);
 
         ListNode listNode = deleteDuplicates_83.deleteDuplicates(head);
 
@@ -46,5 +71,17 @@ public class DeleteDuplicates_83 {
             System.out.println(listNode.val);
             listNode = listNode.next;
         }
+    }
+
+    /**
+     * 递归写法
+     */
+    public ListNode deleteDuplicates2(ListNode head) {
+        if(head == null || head.next == null){
+            return head;
+        }
+        head.next = deleteDuplicates2(head.next);
+        if(head.val == head.next.val) head = head.next;
+        return head;
     }
 }
