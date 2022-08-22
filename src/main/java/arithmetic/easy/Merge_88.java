@@ -1,5 +1,7 @@
 package arithmetic.easy;
 
+import java.util.Arrays;
+
 /**
  * 给你两个按 非递减顺序 排列的整数数组nums1 和 nums2，另有两个整数 m 和 n ，分别表示 nums1 和 nums2 中的元素数目。
  *
@@ -47,17 +49,103 @@ package arithmetic.easy;
  */
 public class Merge_88 {
 
+    /**
+     * 执行结果：通过
+     * 执行用时：0 ms, 在所有 Java 提交中击败了100.00%的用户
+     * 内存消耗：41.2 MB, 在所有 Java 提交中击败了82.14%的用户
+     * 通过测试用例：59 / 59
+     */
     public void merge(int[] nums1, int m, int[] nums2, int n) {
+        if (n == 0) {
+            return;
+        }
 
+        if (m == 0) {
+            // 引用变更提交答案时会报错
+//            nums1 = nums2;
+            for (int i = 0; i < n; i++) {
+                nums1[i] = nums2[i];
+            }
+            return;
+        }
+
+        int current = m + n - 1;
+        m-=1;
+        n-=1;
+        while (m >= 0 && n >= 0) {
+            // 反向遍历，大的放在最后
+            if (nums1[m] >= nums2[n]) {
+                nums1[current] = nums1[m];
+                --current;
+                --m;
+                // 处理剩余的n
+                if (m < 0) {
+                    for (int i = current; i >= 0; i--) {
+                        nums1[i] = nums2[n];
+                        n--;
+                    }
+                    return;
+                }
+                continue;
+            }
+
+            if (nums1[m] < nums2[n]) {
+                nums1[current] = nums2[n];
+                --current;
+                --n;
+                // n<0 ，说明m还有剩余，m本身有序，不需要再处理
+                if (n < 0) {
+                    return;
+                }
+                continue;
+            }
+        }
     }
 
     public static void main(String[] args) {
         Merge_88 merge_88 = new Merge_88();
-        int[] nums1 = {1};
-        int m = 1;
-        int[] nums2 = {};
-        int n = 0;
+        int[] nums1 = {4, 5, 6, 0, 0, 0};
+        int m = 3;
+        int[] nums2 = {1, 2, 3};
+        int n = 3;
+        merge_88.merge2(nums1, m, nums2, n);
 
-        merge_88.merge(nums1, m, nums2, n);
+        int[] nums3 = {0};
+        int k = 0;
+        int[] nums4 = {1};
+        int j = 1;
+        merge_88.merge2(nums3, k, nums4, j);
+
+        int[] nums5 = {2, 0};
+        int a = 1;
+        int[] nums6 = {1};
+        int b = 1;
+        merge_88.merge(nums5, a, nums6, b);
+    }
+
+
+    /**
+     * 思路一致，写法简洁很多，值得学习，解题时应该多加思考更优的处理
+     */
+    public void merge2(int[] nums1, int m, int[] nums2, int n) {
+        int p = m-- + n-- - 1;
+        while (m >= 0 && n >= 0) {
+            nums1[p--] = nums1[m] > nums2[n] ? nums1[m--] : nums2[n--];
+        }
+
+        while (n >= 0) {
+            nums1[p--] = nums2[n--];
+        }
+    }
+
+    /**
+     * 简洁Plus
+     */
+    public void merge3(int[] nums1, int m, int[] nums2, int n) {
+        int i = m--+--n;
+
+        while(n>=0) {
+            nums1[i--] = m>=0 && nums1[m]>nums2[n] ? nums1[m--] : nums2[n--];
+        }
     }
 }
