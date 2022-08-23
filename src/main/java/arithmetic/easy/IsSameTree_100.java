@@ -37,7 +37,17 @@ import comm.TreeNode;
  */
 public class IsSameTree_100 {
 
+    /**
+     * 需要同时处理左右节点，递归结束条件为走到最后一个节点
+     */
     public boolean isSameTree(TreeNode p, TreeNode q) {
+        if (p == null && q == null) {
+            return true;
+        }
+
+        if (p != null && q != null && p.val == q.val) {
+            return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+        }
         return false;
     }
 
@@ -51,8 +61,12 @@ public class IsSameTree_100 {
         TreeNode q = new TreeNode(1);
         TreeNode treeNodeq0 = new TreeNode(2);
         TreeNode treeNodeq1 = new TreeNode(3);
+        TreeNode treeNodeq2 = new TreeNode(4);
+        TreeNode treeNodeq3 = new TreeNode(5);
         q.left = treeNodeq0;
         q.right = treeNodeq1;
+        treeNodep1.left = treeNodeq2;
+        treeNodep1.right = treeNodeq3;
 
         boolean sameTree = isSameTree_100.isSameTree(p, q);
         System.out.println(sameTree);
