@@ -10,6 +10,20 @@ package comm;
  *          // 此处将 current节点设置到 root节点的 next，即两行代码运行后，将 root的 next设置为 temp，current指向 root.next!
  *          current = temp;
  *      }
+ *
+ *      参数初始化：
+ *          int[] nodes = {1,2,6,3,4,5,6};
+ *         ListNode head = null;
+ *         ListNode current = head;
+ *         for (int i = 0; i < nodes.length; i++) {
+ *             if (i == 0) {
+ *                 head = new ListNode(nodes[i]);
+ *                 current = head;
+ *                 continue;
+ *             }
+ *             current.next = new ListNode(nodes[i]);
+ *             current = current.next;
+ *         }
  */
 public class ListNode {
     public int val;
