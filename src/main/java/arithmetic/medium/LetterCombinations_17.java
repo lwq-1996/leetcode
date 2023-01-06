@@ -89,9 +89,7 @@ public class LetterCombinations_17 {
         LetterCombinations_17 letterCombinations_17 = new LetterCombinations_17();
         String digits = "23";
         List<String> result = letterCombinations_17.letterCombinations2(digits);
-        for (String s : result) {
-            System.out.print(s + "、");
-        }
+        System.out.println(result);
     }
 
 
