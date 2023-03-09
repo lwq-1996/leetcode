@@ -40,8 +40,31 @@ package arithmetic.easy;
  */
 public class RemoveElement_27 {
 
+    /**
+     * 执行用时：0 ms, 在所有 Java 提交中击败了100.00%的用户
+     * 内存消耗：39.7 MB, 在所有 Java 提交中击败了93.36%的用户
+     * 通过测试用例：113 / 113
+     * @param nums
+     * @param val
+     * @return
+     */
     public int removeElement(int[] nums, int val) {
-        return 0;
+        if (null == nums) {
+            return 0;
+        }
+
+        int i = 0;
+        int j = 0;
+        while (j < nums.length) {
+            if (nums[j] == val) {
+                j++;
+            } else {
+                nums[i] = nums[j];
+                i++;
+                j++;
+            }
+        }
+        return i;
     }
 
     public static void main(String[] args) {
