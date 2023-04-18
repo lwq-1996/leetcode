@@ -126,10 +126,57 @@ public class IntToRoman_12 {
         return stringBuilder.toString();
     }
 
+    /**
+     * 执行用时：7 ms, 在所有 Java 提交中击败了12.31%的用户
+     * 内存消耗：41.3 MB, 在所有 Java 提交中击败了37.39%的用户
+     * 通过测试用例：3999 / 3999
+     * @param num
+     * @return
+     */
+    public String intToRomanv2(int num) {
+        Map<String, Integer> map = new LinkedHashMap<>(18);
+        map.put("M", 1000);
+        map.put("CM", 900);
+        map.put("D", 500);
+        map.put("CD", 400);
+        map.put("C", 100);
+        map.put("XC", 90);
+        map.put("L", 50);
+        map.put("XL", 40);
+        map.put("X", 10);
+        map.put("IX", 9);
+        map.put("V", 5);
+        map.put("IV", 4);
+        map.put("I", 1);
+
+        StringBuilder stringBuilder = new StringBuilder();
+        Iterator<String> iterator = map.keySet().iterator();
+        int current = 0;
+        while (iterator.hasNext()) {
+            String roman = iterator.next();
+            Integer threshold = map.get(roman);
+            int count = num/threshold;
+            int remainder = num%threshold;
+
+            if ((current++ & 1) == 0) {
+                for (int i = 0; i < count; i++) {
+                    stringBuilder.append(roman);
+                }
+                num = remainder;
+            } else {
+                if (num >= threshold) {
+                    stringBuilder.append(roman);
+                    num -= threshold;
+                }
+            }
+        }
+        return stringBuilder.toString();
+    }
+
     public static void main(String[] args) {
         IntToRoman_12 intToRoman_12 = new IntToRoman_12();
         int num = 1994;
-        String result = intToRoman_12.intToRomanv(num);
+        String result = intToRoman_12.intToRomanv2(num);
         System.out.println(result);
     }
 }
