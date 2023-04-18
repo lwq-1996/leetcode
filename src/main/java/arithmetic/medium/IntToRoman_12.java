@@ -155,10 +155,10 @@ public class IntToRoman_12 {
         while (iterator.hasNext()) {
             String roman = iterator.next();
             Integer threshold = map.get(roman);
-            int count = num/threshold;
-            int remainder = num%threshold;
 
             if ((current++ & 1) == 0) {
+                int count = num/threshold;
+                int remainder = num%threshold;
                 for (int i = 0; i < count; i++) {
                     stringBuilder.append(roman);
                 }
@@ -173,10 +173,32 @@ public class IntToRoman_12 {
         return stringBuilder.toString();
     }
 
+    /**
+     * 执行用时：3 ms, 在所有 Java 提交中击败了97.38%的用户
+     * 内存消耗：41 MB, 在所有 Java 提交中击败了69.43%的用户
+     * 通过测试用例：3999 / 3999
+     * @param num
+     * @return
+     */
+    public String intToRomanv3(int num) {
+        String[] romans = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+        int[] current = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < 13; i++) {
+            while (num >= current[i]) {
+                stringBuilder.append(romans[i]);
+                num -= current[i];
+            }
+        }
+
+        return stringBuilder.toString();
+    }
+
     public static void main(String[] args) {
         IntToRoman_12 intToRoman_12 = new IntToRoman_12();
-        int num = 1994;
-        String result = intToRoman_12.intToRomanv2(num);
+        int num = 58;
+        String result = intToRoman_12.intToRomanv3(num);
         System.out.println(result);
     }
 }
