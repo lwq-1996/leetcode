@@ -59,13 +59,6 @@ import java.util.*;
 public class IntToRoman_12 {
 
     /**
-     * 特殊案例：40 : XL
-     *         41 : XLI
-     *         58 : LVIII
-     *         1994 : MCMXCIV
-     */
-
-    /**
      * 执行用时：10 ms, 在所有 Java 提交中击败了7.51%的用户
      * 内存消耗：41.6 MB, 在所有 Java 提交中击败了18.11%的用户
      * 通过测试用例：3999 / 3999
@@ -195,6 +188,12 @@ public class IntToRoman_12 {
         return stringBuilder.toString();
     }
 
+    /**
+     * 特殊案例：40 : XL
+     *         41 : XLI
+     *         58 : LVIII
+     *         1994 : MCMXCIV
+     */
     public static void main(String[] args) {
         IntToRoman_12 intToRoman_12 = new IntToRoman_12();
         int num = 58;
