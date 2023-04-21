@@ -47,9 +47,6 @@ public class RemoveNthFromEnd_19 {
      */
     public ListNode removeNthFromEnd(ListNode head, int n) {
 
-        /**
-         * root 可省略，直接使用 head引用即可
-         */
         ListNode root = head;
         ListNode stepNode = head;
         ListNode current = head;
