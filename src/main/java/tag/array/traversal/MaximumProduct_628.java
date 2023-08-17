@@ -94,6 +94,9 @@ public class MaximumProduct_628 {
         int max1 = Integer.MIN_VALUE, max2 = Integer.MIN_VALUE, max3 = Integer.MIN_VALUE;
         int min1 = Integer.MAX_VALUE, min2 = Integer.MAX_VALUE;
 
+        /**
+         *  “=” 处理数组中含有相同元素的场景
+         */
         for (int i = 0; i < length; i++) {
             if (nums[i] >= max1) {
                 max3 = max2;
