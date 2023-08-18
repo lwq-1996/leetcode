@@ -74,8 +74,7 @@ public class FindErrorNums_645 {
      *
      * @param nums
      * @return
-     * @Description: 窗口数组：
-     *      排序后寻找相邻节点
+     * @Description: 排序后寻找相邻节点
      */
     public int[] findErrorNums02(int[] nums) {
         if (nums[0] == nums[1] && nums[0] == 1) {
