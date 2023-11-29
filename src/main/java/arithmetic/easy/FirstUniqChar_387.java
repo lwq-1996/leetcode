@@ -88,9 +88,7 @@ public class FirstUniqChar_387 {
      * @Param [s]
      * @return int
      * @Description: 数组计数，统计字符出现的次数，最后返回数组中第一个出现1的
-     *      使用数组会比map快，同时在最开始将字符串转换成char[]，相比于频繁的使用charAt()，性能会更好
-     *      charAt()使用数组下标进行搜索，但是相比于转char[]每次调用会多一次 下标越界判断，
-     *      理论上频繁调用比直接转成char[]消耗性能更多
+     *      使用数组会比map快
      */
     public int firstUniqChar2(String s) {
         char[] chs = s.toCharArray();
