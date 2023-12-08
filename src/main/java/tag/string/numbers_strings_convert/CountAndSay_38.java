@@ -1,4 +1,4 @@
-package arithmetic.medium;
+package tag.string.numbers_strings_convert;
 
 /**
  * @Projectname: leetcode
@@ -7,6 +7,9 @@ package arithmetic.medium;
  * @Data: 2023/12/4 22:54
  * @Description: medium
  */
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * 给定一个正整数 n ，输出外观数列的第 n 项。
