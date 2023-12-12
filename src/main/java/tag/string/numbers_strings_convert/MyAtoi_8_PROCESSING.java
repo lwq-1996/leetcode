@@ -8,6 +8,8 @@ package tag.string.numbers_strings_convert;
  * @Description: medium
  */
 
+import java.math.BigDecimal;
+
 /**
  * 请你来实现一个 myAtoi(string s) 函数，使其能将字符串转换成一个 32 位有符号整数（类似 C/C++ 中的 atoi 函数）。
  *
@@ -71,15 +73,67 @@ package tag.string.numbers_strings_convert;
  * 0 <= s.length <= 200
  * s 由英文字母（大写和小写）、数字（0-9）、' '、'+'、'-' 和 '.' 组成
  */
-public class MyAtoi_8_TODO {
+public class MyAtoi_8_PROCESSING {
 
     public int myAtoi(String s) {
-        return Integer.MIN_VALUE;
+        if (s.trim().length() < 1 || s.replace("-", "").replace("+", "").trim().length() < 1) {
+            return 0;
+        }
+        char[] chars = s.toCharArray();
+        StringBuilder stringBuilder = new StringBuilder();
+        boolean read = false;
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i] == ' ') {
+                continue;
+            }
+            if (stringBuilder.length() < 1 && chars[i] == '0') {
+                read = true;
+                continue;
+            }
+            if (chars[i] <= '9' && chars[i] >= '0') {
+                read = true;
+                stringBuilder.append(chars[i]);
+                continue;
+            }
+            if (stringBuilder.length() < 1 && (chars[i] == '+' || chars[i] == '-')) {
+                // ‘-’ 前是否有先导0
+                if (read && chars[i] == '-') {
+                    return 0;
+                }
+                stringBuilder.append(chars[i]);
+                continue;
+            }
+            // 读取结束
+            if (read) {
+                break;
+            }
+            // 前面不是有效数字字符
+            if (!read) {
+                return 0;
+            }
+        }
+
+        // 没有有效数字
+        if (stringBuilder.length() < 1) {
+            return 0;
+        }
+
+        Long aLong = Long.valueOf(stringBuilder.toString());
+        if (aLong <= Integer.MIN_VALUE) {
+            return Integer.MIN_VALUE;
+        }
+        if (aLong >= Integer.MAX_VALUE) {
+            return Integer.MAX_VALUE;
+        }
+        return Integer.valueOf(stringBuilder.toString());
     }
 
     public static void main(String[] args) {
-        MyAtoi_8_TODO target = new MyAtoi_8_TODO();
-        String s = "42";
+        MyAtoi_8_PROCESSING target = new MyAtoi_8_PROCESSING();
+        String s = "-42";
+        s = "words and 987";
+        s = "-91283472332";
+        s = "   +0 123";
         int result = target.myAtoi(s);
         System.out.println(result);
     }
