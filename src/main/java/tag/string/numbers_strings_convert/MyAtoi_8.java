@@ -8,8 +8,6 @@ package tag.string.numbers_strings_convert;
  * @Description: medium
  */
 
-import java.math.BigDecimal;
-
 /**
  * 请你来实现一个 myAtoi(string s) 函数，使其能将字符串转换成一个 32 位有符号整数（类似 C/C++ 中的 atoi 函数）。
  *
@@ -73,67 +71,66 @@ import java.math.BigDecimal;
  * 0 <= s.length <= 200
  * s 由英文字母（大写和小写）、数字（0-9）、' '、'+'、'-' 和 '.' 组成
  */
-public class MyAtoi_8_PROCESSING {
+public class MyAtoi_8 {
 
+    /**
+     * 通过：
+     * 时间详情：1ms，击败 100.00%使用 Java 的用户
+     * 内存详情：40.81MB，击败 14.17%使用 Java 的用户
+     *
+     * @Author LWQ
+     * @Date 2023/12/12 23:06
+     * @Param [s]
+     * @return int
+     * @Description: 指针逐个遍历
+     * 使用 *10 统计数值
+     */
     public int myAtoi(String s) {
-        if (s.trim().length() < 1 || s.replace("-", "").replace("+", "").trim().length() < 1) {
-            return 0;
+        char[] charArray = s.toCharArray();
+        int length = charArray.length;
+        int index = 0;
+        while (index < length && charArray[index] == ' ') {
+            // 去掉前导空格
+            index++;
         }
-        char[] chars = s.toCharArray();
-        StringBuilder stringBuilder = new StringBuilder();
-        boolean read = false;
-        for (int i = 0; i < chars.length; i++) {
-            if (chars[i] == ' ') {
-                continue;
-            }
-            if (stringBuilder.length() < 1 && chars[i] == '0') {
-                read = true;
-                continue;
-            }
-            if (chars[i] <= '9' && chars[i] >= '0') {
-                read = true;
-                stringBuilder.append(chars[i]);
-                continue;
-            }
-            if (stringBuilder.length() < 1 && (chars[i] == '+' || chars[i] == '-')) {
-                // ‘-’ 前是否有先导0
-                if (read && chars[i] == '-') {
-                    return 0;
-                }
-                stringBuilder.append(chars[i]);
-                continue;
-            }
-            // 读取结束
-            if (read) {
-                break;
-            }
-            // 前面不是有效数字字符
-            if (!read) {
-                return 0;
-            }
-        }
-
-        // 没有有效数字
-        if (stringBuilder.length() < 1) {
+        // 全是空格
+        if (index == length) {
             return 0;
         }
 
-        Long aLong = Long.valueOf(stringBuilder.toString());
-        if (aLong <= Integer.MIN_VALUE) {
-            return Integer.MIN_VALUE;
+        boolean negative = false;
+        if (charArray[index] == '+') {
+            index++;
+        } else if (charArray[index] == '-') {
+            negative = true;
+            index++;
+        } else if (!Character.isDigit(charArray[index])) {
+            // 非数字
+            return 0;
         }
-        if (aLong >= Integer.MAX_VALUE) {
-            return Integer.MAX_VALUE;
+
+        int ans = 0;
+        while (index < length && Character.isDigit(charArray[index])) {
+            int digit = charArray[index] - '0';
+            if (ans > (Integer.MAX_VALUE - digit) / 10) {
+                // 本来应该是 ans * 10 + digit > Integer.MAX_VALUE
+                // 但是 *10 和 + digit 都有可能越界，所有都移动到右边去就可以了。
+                return negative? Integer.MIN_VALUE : Integer.MAX_VALUE;
+            }
+            // 这里会把先导的0过滤掉
+            ans = ans * 10 + digit;
+            index++;
         }
-        return Integer.valueOf(stringBuilder.toString());
+
+        return negative ? -ans : ans;
     }
 
     public static void main(String[] args) {
-        MyAtoi_8_PROCESSING target = new MyAtoi_8_PROCESSING();
+        MyAtoi_8 target = new MyAtoi_8();
         String s = "-42";
         s = "words and 987";
         s = "-91283472332";
-        s = "   +0 123";
+        s = "   +0123";
         int result = target.myAtoi(s);
         System.out.println(result);
     }
