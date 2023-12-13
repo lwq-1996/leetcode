@@ -1,4 +1,4 @@
-package tag.string.numbers_strings_convert;
+package arithmetic.easy;
 
 /**
  * @Projectname: leetcode
@@ -66,7 +66,7 @@ import java.util.Map;
  * IL 和 IM 这样的例子并不符合题目要求，49 应该写作 XLIX，999 应该写作 CMXCIX 。
  * 关于罗马数字的详尽书写规则，可以参考 罗马数字 - Mathematics 。
  */
-public class RomanToInt_13_PROCESSING {
+public class RomanToInt_13 {
 
     /**
      * 通过：
@@ -75,6 +75,7 @@ public class RomanToInt_13_PROCESSING {
      *
      * @param s
      * @return
+     * @desception：将 map 替换为 switch 会快很多
      */
     public int romanToInt(String s) {
         Map<Character, Integer> map = new HashMap<>();
@@ -108,48 +109,47 @@ public class RomanToInt_13_PROCESSING {
         return result;
     }
 
-    public int romanToInt2(String s) {
-        Map<Character, Integer> map = new HashMap<>();
-        map.put('I', 1);
-        map.put('V', 5);
-        map.put('X', 10);
-        map.put('L', 50);
-        map.put('C', 100);
-        map.put('D', 500);
-        map.put('M', 1000);
-
-        char[] chars = s.toCharArray();
-        int cur = 1, n = chars.length;
-        char last = chars[0];
-        int result = map.get(last);
-        while (cur < n) {
-            Character chr = chars[cur];
-            int a1 = map.get(last);
-            int a2 = map.get(chr);
-            if (a1 >= a2) {
-                // 相等 或 前一位大于当前位
-                result += a2;
-            } else if (a2/a1 == 4 || a2/a1 == 9) {
-                // 为 4**、9** 时，后一位
-                // 减去2倍前一位
-                result += a2;
-                result -= 2*a1;
-            } else {
-                result += a2;
-            }
-            last = chr;
-            cur++;
-        }
-
-        return result;
-    }
 
     public static void main(String[] args) {
-        RomanToInt_13_PROCESSING target = new RomanToInt_13_PROCESSING();
+        RomanToInt_13 target = new RomanToInt_13();
         String s = "III";
         s = "LVIII";
         s = "MCMXCIV";
         int result = target.romanToInt(s);
         System.out.println(result);
+    }
+
+    public int romanToInt2(String s) {
+        s = s.replace("IV","a");
+        s = s.replace("IX","b");
+        s = s.replace("XL","c");
+        s = s.replace("XC","d");
+        s = s.replace("CD","e");
+        s = s.replace("CM","f");
+
+        int result = 0;
+        for (int i=0; i<s.length(); i++) {
+            result += which(s.charAt(i));
+        }
+        return result;
+    }
+
+    public int which(char ch) {
+        switch(ch) {
+            case 'I': return 1;
+            case 'V': return 5;
+            case 'X': return 10;
+            case 'L': return 50;
+            case 'C': return 100;
+            case 'D': return 500;
+            case 'M': return 1000;
+            case 'a': return 4;
+            case 'b': return 9;
+            case 'c': return 40;
+            case 'd': return 90;
+            case 'e': return 400;
+            case 'f': return 900;
+        }
+        return 0;
     }
 }
