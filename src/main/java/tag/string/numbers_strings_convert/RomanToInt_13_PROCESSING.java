@@ -8,6 +8,9 @@ package tag.string.numbers_strings_convert;
  * @Description: easy
  */
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 罗马数字包含以下七种字符: I， V， X， L，C，D 和 M。
  *
@@ -65,13 +68,87 @@ package tag.string.numbers_strings_convert;
  */
 public class RomanToInt_13_PROCESSING {
 
+    /**
+     * 通过：
+     * 时间详情：4ms，击败 57.54%使用 Java 的用户
+     * 内存详情：42.64MB，击败 40.05%使用 Java 的用户
+     *
+     * @param s
+     * @return
+     */
     public int romanToInt(String s) {
-        return Integer.MIN_VALUE;
+        Map<Character, Integer> map = new HashMap<>();
+        map.put('I', 1);
+        map.put('V', 5);
+        map.put('X', 10);
+        map.put('L', 50);
+        map.put('C', 100);
+        map.put('D', 500);
+        map.put('M', 1000);
+
+        char[] chars = s.toCharArray();
+        int cur = 1, n = chars.length;
+        char last = chars[0];
+        int result = map.get(last);
+        while (cur < n) {
+            Character chr = chars[cur];
+            int t = map.get(chr) - map.get(last);
+            if (t <= 0) {
+                result += map.get(chr);
+            } else if (t/4 == map.get(last) || t/9 == map.get(last)) {
+                result += map.get(chr);
+                result -= 2*map.get(last);
+            } else {
+                result += map.get(chr);
+            }
+            last = chr;
+            cur++;
+        }
+
+        return result;
+    }
+
+    public int romanToInt2(String s) {
+        Map<Character, Integer> map = new HashMap<>();
+        map.put('I', 1);
+        map.put('V', 5);
+        map.put('X', 10);
+        map.put('L', 50);
+        map.put('C', 100);
+        map.put('D', 500);
+        map.put('M', 1000);
+
+        char[] chars = s.toCharArray();
+        int cur = 1, n = chars.length;
+        char last = chars[0];
+        int result = map.get(last);
+        while (cur < n) {
+            Character chr = chars[cur];
+            int a1 = map.get(last);
+            int a2 = map.get(chr);
+            if (a1 >= a2) {
+                // 相等 或 前一位大于当前位
+                result += a2;
+            } else if (a2/a1 == 4 || a2/a1 == 9) {
+                // 为 4**、9** 时，后一位
+                // 减去2倍前一位
+                result += a2;
+                result -= 2*a1;
+            } else {
+                result += a2;
+            }
+            last = chr;
+            cur++;
+        }
+
+        return result;
     }
 
     public static void main(String[] args) {
         RomanToInt_13_PROCESSING target = new RomanToInt_13_PROCESSING();
         String s = "III";
+        s = "LVIII";
+        s = "MCMXCIV";
         int result = target.romanToInt(s);
         System.out.println(result);
     }
