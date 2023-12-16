@@ -1,4 +1,4 @@
-package tag.string.subsequence;
+package arithmetic.easy;
 
 /**
  * @Projectname: leetcode
@@ -40,14 +40,36 @@ package tag.string.subsequence;
  * 1 <= a.length, b.length <= 100
  * a 和 b 由小写英文字母组成
  */
-public class FindLUSlength_521_TODO {
+public class FindLUSlength_521 {
 
+    /**
+     * 通过：
+     * 时间详情：0ms，击败 100.00%使用 Java 的用户
+     * 内存详情：39.59MB，击败 12.35%使用 Java 的用户
+     *
+     * @Author LWQ
+     * @Date 2023/12/16 16:10
+     * @Param [a, b]
+     * @return int
+     * @Description: 由于要找最长特殊序列，
+     * 若二者长度不同，则长串必定不为短串的字串
+     * 长度相同时，要么二者相等，要么必定互不为对方字串
+     */
     public int findLUSlength(String a, String b) {
-        return Integer.MIN_VALUE;
+        int l1 = a.length(), l2 = b.length();
+        if (l1 != l2) {
+            return Math.max(l1, l2);
+        }
+
+        return a.equals(b) ? -1 : l1;
+    }
+
+    public int findLUSlength2(String a, String b) {
+        return a.equals(b) ? -1 : Math.max(a.length(), b.length());
     }
 
     public static void main(String[] args) {
-        FindLUSlength_521_TODO target = new FindLUSlength_521_TODO();
+        FindLUSlength_521 target = new FindLUSlength_521();
         String a = "aba", b = "cdc";
         int result = target.findLUSlength(a, b);
         System.out.println(result);
