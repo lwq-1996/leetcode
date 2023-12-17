@@ -1,4 +1,4 @@
-package arithmetic.medium;
+package tag.string.subsequence;
 
 /**
  * @Projectname: leetcode
@@ -8,10 +8,7 @@ package arithmetic.medium;
  * @Description: medium
  */
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 /**
  * 给定字符串列表 strs ，返回其中 最长的特殊序列 的长度。如果最长特殊序列不存在，返回 -1 。
@@ -39,7 +36,7 @@ import java.util.List;
  * 1 <= strs[i].length <= 10
  * strs[i] 只包含小写英文字母
  */
-public class FindLUSlength_522 {
+public class FindLUSlength_522_Abandon {
 
     /**
      * ABANDON
@@ -119,7 +116,7 @@ public class FindLUSlength_522 {
     }
 
     public static void main(String[] args) {
-        FindLUSlength_522 target = new FindLUSlength_522();
+        FindLUSlength_522_Abandon target = new FindLUSlength_522_Abandon();
         String[] strs = {"aba","cdc","eae"};
         strs = new String[]{"a","b","c","d","e","f","a","b","c","d","e","f"};
         strs = new String[]{"abaa","abaa","eaec","eaec","eae","z"};
