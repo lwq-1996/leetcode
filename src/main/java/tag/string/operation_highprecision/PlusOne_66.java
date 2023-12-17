@@ -8,9 +8,7 @@ package tag.string.operation_highprecision;
  * @Description: easy
  */
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Stack;
 
 /**
@@ -43,7 +41,7 @@ import java.util.Stack;
  * 1 <= digits.length <= 100
  * 0 <= digits[i] <= 9
  */
-public class PlusOne_66_PROCESSING {
+public class PlusOne_66 {
 
     /**
      * 通过：
@@ -148,7 +146,7 @@ public class PlusOne_66_PROCESSING {
     }
 
     public static void main(String[] args) {
-        PlusOne_66_PROCESSING target = new PlusOne_66_PROCESSING();
+        PlusOne_66 target = new PlusOne_66();
         int[] digits = {1,2,3};
 //        digits = new int[]{9,9,9};
         int[] result = target.plusOne3(digits);
