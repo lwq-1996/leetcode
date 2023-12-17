@@ -37,14 +37,40 @@ package tag.string.operation_highprecision;
  * num1 和num2 都只包含数字 0-9
  * num1 和num2 都不包含任何前导零
  */
-public class AddStrings_415_TODO {
+public class AddStrings_415 {
 
+    /**
+     * 通过：
+     * 时间详情：1ms，击败 100.00%使用 Java 的用户
+     * 内存详情：40.73MB，击败 36.14%使用 Java 的用户
+     *
+     * @Author LWQ
+     * @Date 2023/12/17 14:48
+     * @Param [num1, num2]
+     * @return java.lang.String
+     * @Description: 遍历，逐个相加（同66、67）
+     */
     public String addStrings(String num1, String num2) {
-        return "";
+        StringBuilder result = new StringBuilder();
+        int sum = 0;
+        int l1 = num1.length();
+        int l2 = num2.length();
+        for (int i = l1-1, j = l2-1; i>=0 || j>=0; i--,j--) {
+            sum += i>=0 ? num1.charAt(i) - '0' : 0;
+            sum += j>=0 ? num2.charAt(j) - '0' : 0;
+            result.append(sum % 10);
+            sum /= 10;
+        }
+        // 最高位 进1
+        if (sum > 0) {
+            result.append("1");
+        }
+
+        return result.reverse().toString();
     }
 
     public static void main(String[] args) {
-        AddStrings_415_TODO target = new AddStrings_415_TODO();
+        AddStrings_415 target = new AddStrings_415();
         String num1 = "11", num2 = "123";
         String result = target.addStrings(num1, num2);
         System.out.println(result);
