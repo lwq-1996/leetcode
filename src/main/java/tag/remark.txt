@@ -12,3 +12,7 @@ NumMatrix_304
 GroupAnagrams_49
 FrequencySort_451
 FindSubstringInWraproundString_467
+IsSubsequence_392/Plan3
+FindLongestWord_524
+FindLUSlength_522
+Multiply_43
