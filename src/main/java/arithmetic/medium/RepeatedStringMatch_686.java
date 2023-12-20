@@ -1,4 +1,4 @@
-package tag.string.match;
+package arithmetic.medium;
 
 /**
  * @Projectname: leetcode
@@ -9,7 +9,6 @@ package tag.string.match;
  */
 
 import java.time.Clock;
-import java.util.Arrays;
 
 /**
  * 给定两个字符串 a 和 b，寻找重复叠加字符串 a 的最小次数，使得字符串 b 成为叠加后的字符串 a 的子串，如果不存在则返回 -1。
@@ -43,7 +42,7 @@ import java.util.Arrays;
  * 1 <= b.length <= 104
  * a 和 b 由小写英文字母组成
  */
-public class RepeatedStringMatch_686_TODO {
+public class RepeatedStringMatch_686 {
 
     /**
      * FAIL
@@ -91,7 +90,7 @@ public class RepeatedStringMatch_686_TODO {
     }
 
     public static void main(String[] args) {
-        RepeatedStringMatch_686_TODO target = new RepeatedStringMatch_686_TODO();
+        RepeatedStringMatch_686 target = new RepeatedStringMatch_686();
         String a = "abcd", b = "cdabcdab";
         a = "a";
         b = "aa";
