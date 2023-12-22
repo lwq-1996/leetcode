@@ -34,14 +34,45 @@ import java.util.List;
  * 1 <= s.length <= 1000
  * s 仅由数字和英文字母组成
  */
-public class LongestPalindrome_5_TODO {
+public class LongestPalindrome_5 {
 
+    /**
+     * 通过：
+     * 时间详情：28ms，击败 61.71%使用 Java 的用户
+     * 内存详情：44.28MB，击败 42.33%使用 Java 的用户
+     *
+     * @param s
+     * @return
+     */
     public String longestPalindrome(String s) {
-        return "";
+        if (s == null || s.length() < 1) {
+            return "";
+        }
+        int left = 0, right = 0;
+        for (int i = 0; i < s.length()-1; i++) {
+            int l1 = comp(s, i, i);
+            int l2 = comp(s, i, i+1);
+            int len = Math.max(l1, l2);
+            if (len > right-left) {
+                left = i - (len-1)/2;
+                right = i + len/2;
+            }
+        }
+
+        return s.substring(left, right+1);
+    }
+
+    public Integer comp(String s, Integer left, Integer right) {
+        while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
+            left--;
+            right++;
+        }
+
+        return right-left-1;
     }
 
     public static void main(String[] args) {
-        LongestPalindrome_5_TODO target = new LongestPalindrome_5_TODO();
+        LongestPalindrome_5 target = new LongestPalindrome_5();
         String s = "babad";
         String result = target.longestPalindrome(s);
         System.out.println(result);
