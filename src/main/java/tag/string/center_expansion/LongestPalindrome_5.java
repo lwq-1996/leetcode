@@ -49,7 +49,7 @@ public class LongestPalindrome_5 {
             return "";
         }
         int left = 0, right = 0;
-        for (int i = 0; i < s.length()-1; i++) {
+        for (int i = 0; i < s.length(); i++) {
             int l1 = comp(s, i, i);
             int l2 = comp(s, i, i+1);
             int len = Math.max(l1, l2);
