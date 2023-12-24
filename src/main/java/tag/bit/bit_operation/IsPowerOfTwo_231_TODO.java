@@ -48,13 +48,28 @@ package tag.bit.bit_operation;
  */
 public class IsPowerOfTwo_231_TODO {
 
+    /**
+     * 通过：
+     * 时间详情：0ms，击败 100.00%使用 Java 的用户
+     * 内存详情：39.89MB，击败 5.10%使用 Java 的用户
+     *
+     * @Author LWQ
+     * @Date 2023/12/24 15:10
+     * @Param [n]
+     * @return boolean
+     * @Description:
+     */
     public boolean isPowerOfTwo(int n) {
-        return Boolean.FALSE;
+        return n <= 0 ? false : (n & (n-1)) == 0;
+    }
+
+    public boolean isPowerOfTwo2(int n) {
+        return n > 0 && (n & (n-1)) == 0;
     }
 
     public static void main(String[] args) {
         IsPowerOfTwo_231_TODO target = new IsPowerOfTwo_231_TODO();
-        int n = 1;
+        int n = -2;
         boolean result = target.isPowerOfTwo(n);
         System.out.println(result);
     }
