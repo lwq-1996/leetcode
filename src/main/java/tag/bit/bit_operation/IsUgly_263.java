@@ -36,14 +36,33 @@ package tag.bit.bit_operation;
  *
  * -231 <= n <= 231 - 1
  */
-public class IsUgly_263_TODO {
+public class IsUgly_263 {
 
+    /**
+     * 通过：
+     * 时间详情：0ms，击败 100.00%使用 Java 的用户
+     * 内存详情：39.82MB，击败 5.09%使用 Java 的用户
+     *
+     * @param n
+     * @return
+     * @desception：一直除以2、3、5
+     */
     public boolean isUgly(int n) {
-        return Boolean.FALSE;
+        if (n <= 0) {
+            return false;
+        }
+        int[] data = {2,3,5};
+        for (int d : data) {
+            while (n % d == 0) {
+                n /= d;
+            }
+        }
+
+        return n == 1;
     }
 
     public static void main(String[] args) {
-        IsUgly_263_TODO target = new IsUgly_263_TODO();
+        IsUgly_263 target = new IsUgly_263();
         int n = 6;
         boolean result = target.isUgly(n);
         System.out.println(result);
