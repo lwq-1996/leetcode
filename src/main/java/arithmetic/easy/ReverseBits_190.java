@@ -1,4 +1,4 @@
-package tag.bit.bit_operation;
+package arithmetic.easy;
 
 /**
  * @Projectname: leetcode
@@ -38,15 +38,33 @@ package tag.bit.bit_operation;
  *
  * 进阶: 如果多次调用这个函数，你将如何优化你的算法？
  */
-public class ReverseBits_190_TODO {
+public class ReverseBits_190 {
 
+    private static final int M1 = 0x55555555; // 01010101010101010101010101010101
+    private static final int M2 = 0x33333333; // 00110011001100110011001100110011
+    private static final int M4 = 0x0f0f0f0f; // 00001111000011110000111100001111
+    private static final int M8 = 0x00ff00ff; // 00000000111111110000000011111111
+
+    /**
+     * 通过：
+     * 时间详情：0ms，击败 100.00%使用 Java 的用户
+     * 内存详情：40.75MB，击败 5.03%使用 Java 的用户
+     *
+     * @param n
+     * @return
+     * @desception：位运算分治
+     */
     // you need treat n as an unsigned value
     public int reverseBits(int n) {
-        return Integer.MIN_VALUE;
+        n = n >>> 1 & M1 | (n & M1) << 1;
+        n = n >>> 2 & M2 | (n & M2) << 2;
+        n = n >>> 4 & M4 | (n & M4) << 4;
+        n = n >>> 8 & M8 | (n & M8) << 8;
+        return n >>> 16 | n << 16;
     }
 
     public static void main(String[] args) {
-        ReverseBits_190_TODO target = new ReverseBits_190_TODO();
+        ReverseBits_190 target = new ReverseBits_190();
         // 00000010100101000001111010011100
         int n = 43261596;
         int result = target.reverseBits(n);
