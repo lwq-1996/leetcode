@@ -45,18 +45,42 @@ package tag.bit.bit_operation;
  *
  * 如果多次调用这个函数，你将如何优化你的算法？
  */
-public class HammingWeight_191_TODO {
+public class HammingWeight_191 {
 
+    /**
+     * 通过：
+     * 时间详情：0ms，击败 100.00%使用 Java 的用户
+     * 内存详情：39.48MB，击败 5.00%使用 Java 的用户
+     *
+     * @param n
+     * @return
+     */
     // you need to treat n as an unsigned value
     public int hammingWeight(int n) {
-        return Integer.MIN_VALUE;
+        int result = 0;
+        for (int i = 0; i < 32; i++) {
+            if ((n & 1) == 1) {
+                result++;
+            }
+            n >>>= 1;
+        }
+        return result;
     }
 
     public static void main(String[] args) {
-        HammingWeight_191_TODO target = new HammingWeight_191_TODO();
+        HammingWeight_191 target = new HammingWeight_191();
         // 00000000000000000000000000001011
         int n = 11;
         int result = target.hammingWeight(n);
         System.out.println(result);
+    }
+
+    public int hammingWeight2(int n) {
+        int ret = 0;
+        while (n != 0) {
+            n &= n - 1;
+            ret++;
+        }
+        return ret;
     }
 }
