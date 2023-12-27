@@ -1,4 +1,4 @@
-package tag.bit.bit_operation;
+package arithmetic.easy;
 
 /**
  * @Projectname: leetcode
@@ -34,14 +34,43 @@ package tag.bit.bit_operation;
  *
  * 0 <= x, y <= 231 - 1
  */
-public class HammingDistance_461_TODO {
+public class HammingDistance_461 {
 
+    /**
+     * 通过：
+     * 时间详情：0ms，击败 100.00%使用 Java 的用户
+     * 内存详情：39.29MB，击败 5.02%使用 Java 的用户
+     *
+     * @Author LWQ
+     * @Date 2023/12/27 12:56
+     * @Param [x, y]
+     * @return int
+     * @Description: 找出不同位，再统计
+     */
     public int hammingDistance(int x, int y) {
-        return Integer.MIN_VALUE;
+        int xoy = x ^ y;
+        int result = 0;
+        while (xoy != 0) {
+            xoy &= (xoy-1);
+            result++;
+        }
+
+        return result;
+    }
+
+    /**
+     * @Author LWQ
+     * @Date 2023/12/27 12:58
+     * @Param [x, y]
+     * @return int
+     * @Description: API
+     */
+    public int hammingDistance2(int x, int y) {
+        return Integer.bitCount(x ^ y);
     }
 
     public static void main(String[] args) {
-        HammingDistance_461_TODO target = new HammingDistance_461_TODO();
+        HammingDistance_461 target = new HammingDistance_461();
         int x = 1, y = 4;
         int result = target.hammingDistance(x, y);
         System.out.println(result);
