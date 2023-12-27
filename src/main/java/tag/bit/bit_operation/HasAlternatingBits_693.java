@@ -34,15 +34,39 @@ package tag.bit.bit_operation;
  *
  * 1 <= n <= 231 - 1
  */
-public class HasAlternatingBits_693_TODO {
+public class HasAlternatingBits_693 {
 
+    /**
+     * 通过：
+     * 时间详情：0ms，击败 100.00%使用 Java 的用户
+     * 内存详情：39.16MB，击败 5.83%使用 Java 的用户
+     *
+     * @Author LWQ
+     * @Date 2023/12/27 20:47
+     * @Param [n]
+     * @return boolean
+     * @Description: 右移做异或运算，得到低位全是1，加1后为2的次幂
+     */
     public boolean hasAlternatingBits(int n) {
-        return Boolean.FALSE;
+        int m = (n ^ n >> 1) + 1;
+        return (m & (m - 1)) == 0;
+    }
+
+    /**
+     * @Author LWQ
+     * @Date 2023/12/27 20:52
+     * @Param [n]
+     * @return boolean
+     * @Description: 相较于plan1，少做一次减法运算
+     */
+    public boolean hasAlternatingBits2(int n) {
+        int a = n ^ n >> 1;
+        return (a & (a + 1)) == 0;
     }
 
     public static void main(String[] args) {
-        HasAlternatingBits_693_TODO target = new HasAlternatingBits_693_TODO();
-        int n = 5;
+        HasAlternatingBits_693 target = new HasAlternatingBits_693();
+        int n = 10;
         boolean result = target.hasAlternatingBits(n);
         System.out.println(result);
     }
