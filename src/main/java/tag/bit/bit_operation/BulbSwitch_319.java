@@ -44,16 +44,50 @@ package tag.bit.bit_operation;
  *
  * 0 <= n <= 109
  */
-public class BulbSwitch_319_TODO {
+public class BulbSwitch_319 {
 
+    /**
+     * 超时
+     * @param n
+     * @return
+     * @desception：数据记录每个灯泡状态
+     * n过大时占用空间较大
+     */
     public int bulbSwitch(int n) {
-        return Integer.MIN_VALUE;
+        if (n < 2) {
+            return n;
+        }
+        int[] window = new int[n];
+        for (int i = 2; i <= n; i++) {
+            // 第一位在第一轮后永远不会改变
+            for (int j = i; j <= n; j++) {
+                if (j % i == 0) {
+                    window[j-1] ^= 1;
+                }
+            }
+        }
+
+        int count = 0;
+        for (int i = 0; i < n; i++) {
+            count += window[i];
+        }
+        // 0为亮灯
+        return n-count;
     }
 
     public static void main(String[] args) {
-        BulbSwitch_319_TODO target = new BulbSwitch_319_TODO();
-        int n = 3;
+        BulbSwitch_319 target = new BulbSwitch_319();
+        int n = 7;
         int result = target.bulbSwitch(n);
         System.out.println(result);
+    }
+
+    /**
+     * @param n
+     * @return
+     * @desception：数学
+     */
+    public int bulbSwitch2(int n) {
+        return (int) Math.sqrt(n + 0.5);
     }
 }
