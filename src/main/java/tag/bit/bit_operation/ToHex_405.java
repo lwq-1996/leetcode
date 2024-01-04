@@ -32,14 +32,39 @@ package tag.bit.bit_operation;
  * 输出:
  * "ffffffff"
  */
-public class ToHex_405_TODO {
+public class ToHex_405 {
 
+    /**
+     * 通过：
+     * 执行用时分布：0ms，击败100.00%使用 Java 的用户
+     * 消耗内存分布：39.73MB，击败13.12%使用 Java 的用户
+     *
+     * @param num
+     * @return
+     * @desception：位运算
+     * 一位16进制数对应4位二进制数，则将二进制数按4位一组转换为16进制即可
+     */
     public String toHex(int num) {
-        return "";
+        if (num == 0) {
+            return "0";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 7; i >= 0; i--) {
+            int val = num >>> (i*4) & 0xf;
+            // 首位0跳过
+            if (sb.length() > 0 || val > 0) {
+                char digit = val < 10 ? (char) ('0' + val) : (char) ('a' + val - 10);
+                sb.append(digit);
+            }
+
+        }
+
+        return sb.toString();
     }
 
     public static void main(String[] args) {
-        ToHex_405_TODO target = new ToHex_405_TODO();
+        ToHex_405 target = new ToHex_405();
         int num = 26;
         String result = target.toHex(num);
         System.out.println(result);
