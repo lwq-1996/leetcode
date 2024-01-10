@@ -27,16 +27,40 @@ package tag.bit.bit_operation;
  *
  * 0 <= n <= 8
  */
-public class CountNumbersWithUniqueDigits_357_TODO {
+public class CountNumbersWithUniqueDigits_357 {
 
     public int countNumbersWithUniqueDigits(int n) {
+        if (n < 2) {
+            return (int) Math.pow(10, n);
+        }
         return Integer.MIN_VALUE;
     }
 
     public static void main(String[] args) {
-        CountNumbersWithUniqueDigits_357_TODO target = new CountNumbersWithUniqueDigits_357_TODO();
-        int n = 2;
-        int result = target.countNumbersWithUniqueDigits(n);
+        CountNumbersWithUniqueDigits_357 target = new CountNumbersWithUniqueDigits_357();
+        int n = 4;
+        int result = target.countNumbersWithUniqueDigits2(n);
         System.out.println(result);
+    }
+
+    /**
+     * @param n
+     * @return
+     * @desception：排列组合
+     * 数学推导
+     */
+    public int countNumbersWithUniqueDigits2(int n) {
+        if (n == 0) {
+            return 1;
+        }
+        if (n == 1) {
+            return 10;
+        }
+        int res = 10, cur = 9;
+        for (int i = 0; i < n - 1; i++) {
+            cur *= 9 - i;
+            res += cur;
+        }
+        return res;
     }
 }
