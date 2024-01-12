@@ -39,16 +39,46 @@ import java.util.Arrays;
  *
  * 1 <= area <= 107
  */
-public class ConstructRectangle_492_TODO {
+public class ConstructRectangle_492 {
 
+    /**
+     * 通过：
+     * 时间详情：37ms，击败 19.78%使用 Java 的用户
+     * 内存详情：39.74MB，击败 13.48%使用 Java 的用户
+     *
+     * @param area
+     * @return
+     * @desception：循环遍历
+     */
     public int[] constructRectangle(int area) {
-        return null;
+        int[] result = new int[2];
+        for (int w = 1; w <= area; w++) {
+            if (area % w != 0) {
+                continue;
+            }
+            int l = area / w;
+            if (w > l) {
+                break;
+            }
+            result[0] = l;
+            result[1] = w;
+        }
+
+        return result;
     }
 
     public static void main(String[] args) {
-        ConstructRectangle_492_TODO target = new ConstructRectangle_492_TODO();
+        ConstructRectangle_492 target = new ConstructRectangle_492();
         int area = 4;
         int[] result = target.constructRectangle(area);
         System.out.println(Arrays.toString(result));
+    }
+
+    public int[] constructRectangle2(int area) {
+        int w = (int) Math.sqrt(area);
+        while (area % w != 0) {
+            --w;
+        }
+        return new int[]{area / w, w};
     }
 }
