@@ -38,14 +38,40 @@ package tag.bit.simple_math_problem;
  */
 public class Divide_29_TODO {
 
+    /**
+     * 超时：
+     * dividend = 1000000000
+     * divisor = 1
+     * @param dividend
+     * @param divisor
+     * @return
+     */
     public int divide(int dividend, int divisor) {
-        return Integer.MIN_VALUE;
+        boolean f = (dividend ^ divisor) < 0;
+        if (dividend == Integer.MIN_VALUE && divisor == -1) {
+            return Integer.MAX_VALUE;
+        }
+        long d = Math.abs((long) dividend);
+        long t = Math.abs((long) divisor);
+        int result = 0;
+        while (d >= t) {
+            d -= t;
+            result++;
+        }
+
+        if (f) {
+            result = -result;
+        }
+
+        return result;
     }
 
     public static void main(String[] args) {
         Divide_29_TODO target = new Divide_29_TODO();
-        int dividend = 10, divisor = 3;
+        int dividend = 1000000000, divisor = 1;
         int result = target.divide(dividend, divisor);
         System.out.println(result);
+        System.out.println(Integer.MAX_VALUE);
+        System.out.println(Integer.MIN_VALUE);
     }
 }
