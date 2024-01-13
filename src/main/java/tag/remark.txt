@@ -17,3 +17,7 @@ FindLongestWord_524
 FindLUSlength_522
 Multiply_43
 StrStr_28/KMP算法
+
+-位运算
+ReverseBits_190
+MyPow_50/Plan3
