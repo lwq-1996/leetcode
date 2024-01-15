@@ -36,7 +36,7 @@ package tag.bit.simple_math_problem;
  * -231 <= dividend, divisor <= 231 - 1
  * divisor != 0
  */
-public class Divide_29_TODO {
+public class Divide_29 {
 
     /**
      * 超时：
@@ -67,11 +67,32 @@ public class Divide_29_TODO {
     }
 
     public static void main(String[] args) {
-        Divide_29_TODO target = new Divide_29_TODO();
+        Divide_29 target = new Divide_29();
         int dividend = 1000000000, divisor = 1;
         int result = target.divide(dividend, divisor);
         System.out.println(result);
         System.out.println(Integer.MAX_VALUE);
         System.out.println(Integer.MIN_VALUE);
+    }
+
+    public int divide32(int dividend, int divisor) {
+        if (dividend == 0) {
+            return 0;
+        }
+        if (dividend == Integer.MIN_VALUE && divisor == -1) {
+            return Integer.MAX_VALUE;
+        }
+        boolean negative;
+        negative = (dividend ^ divisor) <0;//用异或来计算是否符号相异
+        long t = Math.abs((long) dividend);
+        long d= Math.abs((long) divisor);
+        int result = 0;
+        for (int i=31; i>=0;i--) {
+            if ((t>>i)>=d) {//找出足够大的数2^n*divisor
+                result+=1<<i;//将结果加上2^n
+                t-=d<<i;//将被除数减去2^n*divisor
+            }
+        }
+        return negative ? -result : result;//符号相异取反
     }
 }
