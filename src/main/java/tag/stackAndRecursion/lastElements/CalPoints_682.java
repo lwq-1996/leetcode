@@ -59,14 +59,45 @@ package tag.stackAndRecursion.lastElements;
  * 对于 "+" 操作，题目数据保证记录此操作时前面总是存在两个有效的分数
  * 对于 "C" 和 "D" 操作，题目数据保证记录此操作时前面总是存在一个有效的分数
  */
-public class CalPoints_682_TODO {
+public class CalPoints_682 {
 
+    /**
+     * 通过：
+     * 时间详情：1ms，击败 100.00%使用 Java 的用户
+     * 内存详情：40.60MB，击败 29.83%使用 Java 的用户
+     *
+     * @param operations
+     * @return
+     * @desception：模拟
+     *  逐位遍历
+     */
     public int calPoints(String[] operations) {
-        return Integer.MIN_VALUE;
+        int len = operations.length;
+        int[] count = new int[len];
+        int cur = 0;
+        for (int i = 0; i < len; i++) {
+            if ("C".equals(operations[i])) {
+                cur--;
+                continue;
+            } else if ("D".equals(operations[i])) {
+                count[cur] = count[cur - 1] * 2;
+            } else if ("+".equals(operations[i])) {
+                count[cur] = count[cur - 1] + count[cur - 2];
+            } else {
+                count[cur] = Integer.valueOf(operations[i]);
+            }
+            cur++;
+        }
+
+        int result = 0;
+        for (int i = 0; i < cur; i++) {
+            result += count[i];
+        }
+        return result;
     }
 
     public static void main(String[] args) {
-        CalPoints_682_TODO target = new CalPoints_682_TODO();
+        CalPoints_682 target = new CalPoints_682();
         String[] operations = new String[]{"5","2","C","D","+"};
         int result = target.calPoints(operations);
         System.out.println(result);
