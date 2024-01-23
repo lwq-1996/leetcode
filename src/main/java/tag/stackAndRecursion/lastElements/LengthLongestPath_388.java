@@ -8,6 +8,9 @@ package tag.stackAndRecursion.lastElements;
  * @Description: medium
  */
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 /**
  * 假设有一个同时存储文件和目录的文件系统。下图展示了文件系统的一个示例：
  *
@@ -65,5 +68,105 @@ package tag.stackAndRecursion.lastElements;
  * 1 <= input.length <= 104
  * input 可能包含小写或大写的英文字母，一个换行符 '\n'，一个制表符 '\t'，一个点 '.'，一个空格 ' '，和数字。
  */
-public class LengthLongestPath_388_TODO {
+public class LengthLongestPath_388 {
+
+    public int lengthLongestPath(String input) {
+        return Integer.MIN_VALUE;
+    }
+
+    public static void main(String[] args) {
+        LengthLongestPath_388 target = new LengthLongestPath_388();
+        String input = "dir\n\tsubdir1\n\tsubdir2\n\t\tfile.ext";
+        int result = target.lengthLongestPath(input);
+        System.out.println(result);
+    }
+
+    /**
+     * @param input
+     * @return
+     * @desception：栈
+     */
+    public int lengthLongestPath2(String input) {
+        int n = input.length();
+        int pos = 0;
+        int ans = 0;
+        Deque<Integer> stack = new ArrayDeque<Integer>();
+
+        while (pos < n) {
+            /* 检测当前文件的深度 */
+            int depth = 1;
+            while (pos < n && input.charAt(pos) == '\t') {
+                pos++;
+                depth++;
+            }
+            /* 统计当前文件名的长度 */
+            boolean isFile = false;
+            int len = 0;
+            while (pos < n && input.charAt(pos) != '\n') {
+                if (input.charAt(pos) == '.') {
+                    isFile = true;
+                }
+                len++;
+                pos++;
+            }
+            /* 跳过当前的换行符 */
+            pos++;
+
+            while (stack.size() >= depth) {
+                stack.pop();
+            }
+            if (!stack.isEmpty()) {
+                len += stack.peek() + 1;
+            }
+            if (isFile) {
+                ans = Math.max(ans, len);
+            } else {
+                stack.push(len);
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * @param input
+     * @return
+     * @desception：遍历
+     */
+    public int lengthLongestPath3(String input) {
+        int n = input.length();
+        int pos = 0;
+        int ans = 0;
+        int[] level = new int[n + 1];
+
+        while (pos < n) {
+            /* 检测当前文件的深度 */
+            int depth = 1;
+            while (pos < n && input.charAt(pos) == '\t') {
+                pos++;
+                depth++;
+            }
+            /* 统计当前文件名的长度 */
+            int len = 0;
+            boolean isFile = false;
+            while (pos < n && input.charAt(pos) != '\n') {
+                if (input.charAt(pos) == '.') {
+                    isFile = true;
+                }
+                len++;
+                pos++;
+            }
+            /* 跳过换行符 */
+            pos++;
+
+            if (depth > 1) {
+                len += level[depth - 1] + 1;
+            }
+            if (isFile) {
+                ans = Math.max(ans, len);
+            } else {
+                level[depth] = len;
+            }
+        }
+        return ans;
+    }
 }
