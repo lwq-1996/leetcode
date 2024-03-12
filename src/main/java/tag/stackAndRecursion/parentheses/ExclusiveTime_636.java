@@ -8,7 +8,9 @@ package tag.stackAndRecursion.parentheses;
  * @Description: medium
  */
 
+import java.util.ArrayDeque;
 import java.util.Arrays;
+import java.util.Deque;
 import java.util.List;
 
 /**
@@ -75,17 +77,41 @@ import java.util.List;
  * 两个结束事件不会在同一时间戳发生
  * 每道函数都有一个对应 "start" 日志的 "end" 日志
  */
-public class ExclusiveTime_636_TODO {
+public class ExclusiveTime_636 {
 
     public int[] exclusiveTime(int n, List<String> logs) {
         return null;
     }
 
     public static void main(String[] args) {
-        ExclusiveTime_636_TODO targte = new ExclusiveTime_636_TODO();
+        ExclusiveTime_636 targte = new ExclusiveTime_636();
         int n = 2;
         List<String> logs = Arrays.asList("0:start:0","1:start:2","1:end:5","0:end:6");
         int[] result = targte.exclusiveTime(n, logs);
         System.out.println(Arrays.toString(result));
+    }
+
+    public int[] exclusiveTime2(int n, List<String> logs) {
+        Deque<int[]> stack = new ArrayDeque<int[]>(); // {idx, 开始运行的时间}
+        int[] res = new int[n];
+        for (String log : logs) {
+            int idx = Integer.parseInt(log.substring(0, log.indexOf(':')));
+            String type = log.substring(log.indexOf(':') + 1, log.lastIndexOf(':'));
+            int timestamp = Integer.parseInt(log.substring(log.lastIndexOf(':') + 1));
+            if ("start".equals(type)) {
+                if (!stack.isEmpty()) {
+                    res[stack.peek()[0]] += timestamp - stack.peek()[1];
+                    stack.peek()[1] = timestamp;
+                }
+                stack.push(new int[]{idx, timestamp});
+            } else {
+                int[] t = stack.pop();
+                res[t[0]] += timestamp - t[1] + 1;
+                if (!stack.isEmpty()) {
+                    stack.peek()[1] = timestamp + 1;
+                }
+            }
+        }
+        return res;
     }
 }
