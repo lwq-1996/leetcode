@@ -54,7 +54,7 @@ public class FindPairs_532 {
         for (int num : nums) {
             // 左移k位
             if (visited.contains(num - k)) {
-                res.add(num - k);
+                res.add(num);
             }
             // 右移k位
             if (visited.contains(num + k)) {
@@ -65,10 +65,27 @@ public class FindPairs_532 {
         return res.size();
     }
 
+    public int findPairs2(int[] nums, int k) {
+        Set<Integer> vis = new HashSet<>();
+        Set<Integer> res = new HashSet<>();
+        for (int num : nums) {
+            if (vis.contains(num - k)) {
+                res.add(num);// 数对为：[num-k,num] 以第二个数唯一标记一个数对
+//                res.add(num - k);// 数对为：[num-k,num] 以第一个数唯一标记一个数对
+            }
+            if (vis.contains(num + k)) {
+                res.add(num + k);// 数对为：[num,num+k]  以第二个数唯一标记一个数对
+//                res.add(num);// 数对为：[num,num+k]  以第一个数唯一标记一个数对
+            }
+            vis.add(num);
+        }
+        return res.size();
+    }
+
     public static void main(String[] args) {
         FindPairs_532 target = new FindPairs_532();
-        int[] nums = {3, 1, 4, 1, 5};
-        int k = 2;
+        int[] nums = {1,2,4,4,3,3,0,9,2,3};
+        int k = 3;
         int result = target.findPairs(nums, k);
         System.out.println(result);
     }
